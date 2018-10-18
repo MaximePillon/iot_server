@@ -1,1 +1,3 @@
 # Git ignore here
+.idea/
+venv/
