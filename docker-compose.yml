@@ -7,5 +7,5 @@ services:
       - '5432:5432'
     environment:
       - POSTGRESQL_DATABASE=iotproject
-      - POSTGRESQL_USERNAME=username
-      - POSTGRESQL_PASSWORD=password
+      - POSTGRESQL_USERNAME=iot_user
+      - POSTGRESQL_PASSWORD=iot_password

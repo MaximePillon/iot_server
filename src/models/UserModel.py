@@ -1,18 +1,11 @@
-from app import db
+from app import db, lm
+from flask_login import UserMixin
+from werkzeug.security import generate_password_hash, check_password_hash
 
-class UserModel(BaseModel):
+
+class User(UserMixin, db.Model):
     """Model for the user table"""
-    __tablename__ = 'user'
-
-    def __init__(self, firstname, lastname, email, password, status):
-        self.firstname = firstname
-        self.lastname = lastname
-        self.email = email
-        self.password = password
-        self.status = status
-
-    def __repr__(self):
-        return '<E-mail %r>' % self.email
+    __tablename__ = 'users'
 
     id = db.Column('user_id', db.Integer, primary_key=True)
     firstname = db.Column('firstname', db.String(255))
@@ -21,3 +14,29 @@ class UserModel(BaseModel):
     password = db.Column('password', db.String)
     status = db.Column('status', db.String)
 
+    def __init__(self, **kwargs):
+        super(User, self).__init__(**kwargs)
+
+    def __repr__(self):
+        return '<E-mail %r>' % self.email
+
+    def is_authenticated(self):
+        return True
+
+    def is_active(self):
+        return True
+
+    def is_anonymous(self):
+        return False
+
+    def get_id(self):
+        return self.id
+
+    def verify_password(self, password):
+        return check_password_hash(self.password, password)
+
+
+@lm.user_loader
+def load_user(user_id):
+    """User loader callback for Flask-Login."""
+    return User.query.get(int(user_id))

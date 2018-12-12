@@ -1,40 +1,41 @@
 from flask import Flask
-from flask_simplelogin import SimpleLogin
+from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
+from flask_bootstrap import Bootstrap
+from flask_script import Manager
+from flask_migrate import Migrate, MigrateCommand
 
 
 app = Flask(__name__)
 
-db = SQLAlchemy()
-
-#todo
 # Database configuration
 POSTGRES = {
-    'user': 'username',
-    'pw': 'password',
+    'user': 'iot_user',
+    'pw': 'iot_password',
     'db': 'iotproject',
     'host': 'localhost',
     'port': '5432',
 }
+
 app.config['DEBUG'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://%(user)s:\
-%(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://iot_user:iot_password@localhost/iotproject'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://%(user)s:\%(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES
+app.config['SECRET_KEY'] = 'top-secret'
+app.secret_key = 'this-is-a-secret-key'
 
-# Login configuration
-app.config['SECRET_KEY'] = 'this-is-a-secret-key'
 
-messages = {
-    'login_success': 'Successfully logged in',
-    'login_failure': 'No user corresponding to inserted data',
-    'is_logged_in': 'Actually logged in',
-    'logout': 'Disconnected',
-    'login_required': 'You has to be logged in',
-    'access_denied': 'Access denied',
-    'auth_error': 'Error'
-}
+db = SQLAlchemy(app)
+bootstrap = Bootstrap(app)
+lm = LoginManager(app)
+db.create_all()
+migrate = Migrate(app, db)
 
-db.init_app(app)
-SimpleLogin(app, messages=messages)
+from src.controller.FrontController import front
+from src.controller.UserController import user
+
+app.register_blueprint(front, url_prefix='/')
+app.register_blueprint(user, url_prefix='/')
 
 if __name__ == '__main__':
     app.run()
