@@ -1,0 +1,37 @@
+{% extends 'fragments/base.html' %}
+{% block title %}Stations{% endblock %}
+
+{% block page_content %}
+
+    {% if stations %}
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">City</th>
+                <th scope="col">Country</th>
+                <th scope="col">Postal code</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for station in stations %}
+                <tr>
+                    <th scope="row">{{ station.id }}</th>
+                    <td>{{ station.city }}</td>
+                    <td>{{ station.country }}</td>
+                    <td>{{ station.postal_code }}</td>
+                    <td>
+                        <a href="{{ url_for('station.details', station=station) }}">
+                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <h1>There is no station registered yet !</h1>
+    {% endif %}
+
+{% endblock %}

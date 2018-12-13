@@ -20,7 +20,8 @@ POSTGRES = {
 app.config['DEBUG'] = True
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://iot_user:iot_password@localhost/iotproject'
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://%(user)s:\%(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES
+# Issue in concatenation to solve latter for better code property
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://%(user)s:\%(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES
 app.config['SECRET_KEY'] = 'top-secret'
 app.secret_key = 'this-is-a-secret-key'
 
@@ -33,9 +34,11 @@ migrate = Migrate(app, db)
 
 from src.controller.FrontController import front
 from src.controller.UserController import user
+from src.controller.StationController import station
 
 app.register_blueprint(front, url_prefix='/')
 app.register_blueprint(user, url_prefix='/')
+app.register_blueprint(station, url_prefix='/station/')
 
 if __name__ == '__main__':
     app.run()

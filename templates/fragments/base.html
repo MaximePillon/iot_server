@@ -18,6 +18,9 @@
             <ul class="nav navbar-nav">
                 <li><a href="{{ url_for('front.index') }}">Home</a></li>
             </ul>
+            <ul class="nav navbar-nav">
+                <li><a href="{{ url_for('station.view') }}">Stations</a></li>
+            </ul>
             <ul class="nav navbar-nav navbar-right">
                 {% if current_user.is_authenticated %}
                 <li><a href="{{ url_for('user.logout') }}">Log Out</a></li>

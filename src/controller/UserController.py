@@ -1,12 +1,9 @@
-from flask import request, redirect, url_for, flash, session, render_template, Blueprint
+from flask import redirect, url_for, flash, session, render_template, Blueprint
 from app import db
 from src.forms.UserForm import RegisterForm, LoginForm
-from flask_sqlalchemy import SQLAlchemy
 from src.models.UserModel import User
-from flask_login import LoginManager, UserMixin, login_user, logout_user, \
-    current_user
+from flask_login import login_user, logout_user, current_user
 from werkzeug.security import generate_password_hash
-import flask_login
 
 
 user = Blueprint('user', __name__)
