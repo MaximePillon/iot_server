@@ -1,5 +1,7 @@
 from app import db
 from sqlalchemy.orm import relationship
+from src.models.DataModel import Data
+
 
 class Sensor(db.Model):
     """Model for the sensor table"""
@@ -12,6 +14,7 @@ class Sensor(db.Model):
     name = db.Column('name', db.String(100))
     station_id = db.Column(db.Integer, db.ForeignKey('station.station_id'))
     station = relationship("Station", back_populates="sensors")
+    data = relationship("Data", back_populates="sensor")
 
     def __init__(self, **kwargs):
         super(Sensor, self).__init__(**kwargs)

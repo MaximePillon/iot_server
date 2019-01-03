@@ -22,7 +22,7 @@
                     <td>{{ station.country }}</td>
                     <td>{{ station.postal_code }}</td>
                     <td>
-                        <a href="{{ url_for('station.details', station=station) }}">
+                        <a href="{{ url_for('station.details', station=station.id) }}">
                             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                         </a>
                     </td>
