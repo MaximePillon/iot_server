@@ -9,28 +9,43 @@ except psycopg2.DatabaseError as ex:
     sys.exit(1)
 
 curs = conn.cursor()
-curs.execute("""
-        INSERT INTO station (station_id, city, country, postal_code, xlocation, ylocation)
-        VALUES (%s, %s, %s, %s, %s, %s);
-        """, (1, 'Zagreb', 'Croatia', '10000', '45.814', '15.945'))
 
-curs.execute("""
+try:
+    curs.execute("""
+            INSERT INTO station (station_id, city, country, postal_code, xlocation, ylocation)
+            VALUES (%s, %s, %s, %s, %s, %s);
+            """, (1, 'Zagreb', 'Croatia', '10000', '45.814', '15.945'))
+except psycopg2.Error as e:
+    print("exec create station error")
+
+try:
+    curs.execute("""
         INSERT INTO sensor (voltage, is_activated, data_type, name, station_id)
         VALUES (%s, %s, %s, %s, %s);
         """, ('12', 'true', 'm/s', 'Wind', '1'))
+except psycopg2.Error as e:
+    print("exec create sensor 1 error")
 
-curs.execute("""
+try:
+    curs.execute("""
         INSERT INTO sensor (voltage, is_activated, data_type, name, station_id)
         VALUES (%s, %s, %s, %s, %s);
         """, ('12', 'true', 'mm/h', 'Precipitation', '1'))
+except psycopg2.Error as e:
+print("exec create sensor 2 error")
 
-
-curs.execute("""
+try:
+    curs.execute("""
         INSERT INTO sensor (voltage, is_activated, data_type, name, station_id)
         VALUES (%s, %s, %s, %s, %s);
         """, ('12', 'true', '%', 'Humidity', '1'))
+except psycopg2.Error as e:
+    print("exec create sensor 3 error")
 
-curs.execute("""
+try:
+    curs.execute("""
         INSERT INTO sensor (voltage, is_activated, data_type, name, station_id)
         VALUES (%s, %s, %s, %s, %s);
         """, ('12', 'true', '°C', 'Temperature', '1'))
+except psycopg2.Error as e:
+    print("exec create sensor 4 error")
