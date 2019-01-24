@@ -15,9 +15,10 @@ curs = conn.cursor()
 
 # need to put name send by the board with the corresponding id created with create_station.py
 sensors = {
-    'Precipitation': 1,
-    'Humidity': 2,
-    'Temperature': 3
+    'wind': 1,
+    'precipitation': 2,
+    'humidity': 3,
+    'temperature': 4
 }
 
 

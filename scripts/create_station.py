@@ -14,9 +14,23 @@ curs.execute("""
         VALUES (%s, %s, %s, %s, %s, %s);
         """, (1, 'Zagreb', 'Croatia', '10000', '45.814', '15.945'))
 
-# Maybe we will have to replace true with 1 don't know yet
-# duplicate this line has many time has needed for each sensor
 curs.execute("""
-        INSERT INTO sensor (sensor_id, voltage, is_activated, data_type, name, station_id)
-        VALUES (%s, %s, %s, %s, %s, %s);
-        """, (1, '12', 'true', 'mm', 'Precipitation', '1'))
+        INSERT INTO sensor (voltage, is_activated, data_type, name, station_id)
+        VALUES (%s, %s, %s, %s, %s);
+        """, ('12', 'true', 'm/s', 'Wind', '1'))
+
+curs.execute("""
+        INSERT INTO sensor (voltage, is_activated, data_type, name, station_id)
+        VALUES (%s, %s, %s, %s, %s);
+        """, ('12', 'true', 'mm/h', 'Precipitation', '1'))
+
+
+curs.execute("""
+        INSERT INTO sensor (voltage, is_activated, data_type, name, station_id)
+        VALUES (%s, %s, %s, %s, %s);
+        """, ('12', 'true', '%', 'Humidity', '1'))
+
+curs.execute("""
+        INSERT INTO sensor (voltage, is_activated, data_type, name, station_id)
+        VALUES (%s, %s, %s, %s, %s);
+        """, ('12', 'true', '°C', 'Temperature', '1'))
