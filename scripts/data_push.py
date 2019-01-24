@@ -26,14 +26,11 @@ sensors = {
 def recieve_data():
     return {}
 
-
 def data_pushing(infos):
     date = datetime.datetime.now()
     for key, val in infos.items():
-        curs.execute("""
-            INSERT INTO data (value, created_at, sensor_id)
-            VALUES (%(info)s, %(date)s, %(id)s);
-            """, {'info': val, 'date': date, 'id': sensors[key]})
+        curs.execute("INSERT INTO data (value, created_at, sensor_id) VALUES (%(info)s, %(date)s, %(id)s);", {'info': val, 'date': date, 'id': sensors[key]})
+    conn.commit()
 
 
 if __name__ == '__main__':
