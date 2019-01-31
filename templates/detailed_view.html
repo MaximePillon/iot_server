@@ -25,7 +25,7 @@
             // bar chart data
             var barData = {
                 labels: [
-                    {% for item in sensor.data %}
+                    {% for item in sensor.data[-20:] %}
                         "{{ item.created_at.strftime('%Y-%m-%d %H:%M:%S') }}",
                     {% endfor %}
                 ],
@@ -38,7 +38,7 @@
                     pointHighlightStroke: "rgba(151,187,205,1)",
                     bezierCurve: false,
                     data: [
-                        {% for item in sensor.data %}
+                        {% for item in sensor.data[-20:] %}
                             {{ item.value }},
                         {% endfor %}]
                 }
@@ -57,7 +57,7 @@
             var mychart = document.getElementById("{{ sensor.name }}").getContext("2d");
             steps = 5
             var maximum = 0
-            {% for item in sensor.data %}
+            {% for item in sensor.data[-20:] %}
                 if ({{ item.value }} > maximum)
                 maximum ={{ item.value }}
             {% endfor %}
