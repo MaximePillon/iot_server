@@ -26,6 +26,14 @@ def load_station(station_id):
     return Station.query.get(int(station_id))
 
 
+def load_voltage(station_id):
+    """load the voltage of a station"""
+    station = Station.query.get(int(station_id))
+    for sensor in station.sensors:
+        if sensor.name == "battery":
+            return sensor.data[-1].value
+    return "12"
+
 def load_all_station():
     """load every station"""
     return Station.query.all()

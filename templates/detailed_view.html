@@ -7,7 +7,7 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js'></script>
 
 
-    <h1>Station of {{ station.city }} </h1>
+    <h1>Station of {{ station.city }} </h1><h4>Current voltage: {{ voltage }}V</h4>
 
     {% for sensor in station.sensors %}
         <div class="col-lg-6" id="sensor_{{ sensor.name }}" style="position:relative;">
