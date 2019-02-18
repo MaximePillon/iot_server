@@ -1,1 +1,4 @@
 # Git ignore here
+.idea/
+venv/
+__pycache__/
