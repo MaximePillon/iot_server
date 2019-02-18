@@ -9,7 +9,7 @@
 
     <h1>Station of {{ station.city }} </h1><h4>Current voltage: {{ voltage }}V</h4>
 
-    {% for sensor in station.sensors %}
+    {% for sensor in station.sensors if sensor.name != "Battery" %}
         <div class="col-lg-6" id="sensor_{{ sensor.name }}" style="position:relative;">
 
             <h1>{{ sensor.name }} ({{ sensor.data_type }})</h1>
@@ -20,13 +20,13 @@
     {% endfor %}
 
     <script>
-        {% for sensor in station.sensors %}
+        {% for sensor in station.sensors if sensor.name != "Battery" %}
 
             // bar chart data
             var barData = {
                 labels: [
                     {% for item in sensor.data[-20:] %}
-                        "{{ item.created_at.strftime('%Y-%m-%d %H:%M:%S') }}",
+                        "{{ item.created_at.strftime('%H:%M:%S') }}",
                     {% endfor %}
                 ],
                 datasets: [{
